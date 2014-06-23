@@ -1138,9 +1138,11 @@ pid_t start_child(CmdOptions& op, std::string& error)
             tcgetattr(0, &ios);
             ios.c_lflag &= ~(ECHO | ECHONL);
             if (tcsetattr(0, TCSANOW, &ios) < 0) {
-                err.write("Cannot disable pty echo");
-                perror(err.c_str());
-                return EXIT_FAILURE;
+                // Some of us do not care about the ECHO mode not being disabled.
+                
+                // err.write("Cannot disable pty echo");
+                // perror(err.c_str());
+                // return EXIT_FAILURE;
             }
 
             // Make the current process a new session leader
